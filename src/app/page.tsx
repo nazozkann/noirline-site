@@ -3,11 +3,15 @@ import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
+import GraffitiWall from "./components/GrafittiWall";
+import GraffitiHeader from "./components/GraffitiHeader";
+import Footer from "./components/Footer";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function HomePage() {
   useEffect(() => {
     // Pic Overlay Animation
-    gsap.registerPlugin(ScrollTrigger);
 
     const movePic = gsap.timeline({
       scrollTrigger: {
@@ -95,6 +99,137 @@ export default function HomePage() {
       horizontalTween.scrollTrigger?.kill();
     };
   }, []);
+  useEffect(() => {
+    const section4 = document.querySelector<HTMLElement>(".section-4");
+    if (!section4) return;
+    const cities = JSON.parse(section4.dataset.cities!);
+
+    const imgEl = section4.querySelector<HTMLImageElement>(".section-img");
+    const hoverImgEl = section4.querySelector<HTMLImageElement>(".hover-img");
+    const feedbackEl = section4.querySelector<HTMLElement>(".city-feedback");
+    const nameEl = section4.querySelector<HTMLElement>(".city-name");
+    const descEl = section4.querySelector<HTMLElement>(".city-desc");
+    const desc2El = section4.querySelector<HTMLElement>(".city-desc2");
+    if (!imgEl || !hoverImgEl || !feedbackEl || !nameEl || !descEl || !desc2El)
+      return;
+
+    // — Helper: scramble + fill animation
+    const scrambleFill = (
+      el: HTMLElement,
+      newText: string,
+      speed = 10,
+      fillmode: "forwards" | "backwards" | "both" = "forwards"
+    ) => {
+      if (el.dataset.animating === "true") return;
+      el.dataset.animating = "true";
+
+      const len = newText.length;
+      // initial random chars
+      const randomArr = Array.from({ length: len }, (_, i) =>
+        newText[i] === " "
+          ? " "
+          : [
+              "a",
+              "b",
+              "c",
+              "d",
+              "e",
+              "f",
+              "g",
+              "h",
+              "i",
+              "j",
+              "k",
+              "l",
+              "m",
+              "n",
+              "o",
+              "p",
+              "q",
+              "r",
+              "s",
+              "t",
+              "v",
+              "w",
+              "x",
+              "y",
+              "z",
+            ][Math.floor(Math.random() * 25)]
+      );
+
+      const finish = () => {
+        el.dataset.animating = "false";
+      };
+
+      if (fillmode === "backwards") {
+        for (let i = len - 1; i >= 0; i--) {
+          setTimeout(() => {
+            randomArr.splice(i, 1, newText[i]);
+            el.textContent = randomArr.join("");
+            if (i === 0) finish();
+          }, (len - i) * speed);
+        }
+      } else {
+        const isEven = len % 2 === 0;
+        for (let i = 0; i < len; i++) {
+          setTimeout(() => {
+            if (
+              fillmode === "forwards" ||
+              (fillmode === "both" && i % 2 === 0)
+            ) {
+              randomArr.splice(i, 1, newText[i]);
+            } else {
+              // both & odd
+              const pos = isEven ? len - i : len - i - 1;
+              randomArr.splice(pos, 1, newText[pos]);
+            }
+            el.textContent = randomArr.join("");
+            if (i === len - 1) finish();
+          }, (i + 1) * speed);
+        }
+      }
+    };
+
+    // set initial city immediately
+    const first = cities[0];
+    imgEl.src = first.image;
+    hoverImgEl.src = first.backImage;
+    scrambleFill(feedbackEl, first.feedback);
+    scrambleFill(nameEl, first.city);
+    scrambleFill(descEl, first.description);
+    scrambleFill(desc2El, first.description2);
+
+    ScrollTrigger.create({
+      trigger: section4,
+      start: "top top",
+      end: () => `+=${window.innerHeight * cities.length - 5}`,
+      scrub: true,
+      pin: true,
+      snap: {
+        snapTo: 1 / (cities.length - 1),
+        duration: { min: 0.2, max: 0.4 },
+      },
+      onUpdate(self) {
+        const idx = Math.min(
+          Math.floor(self.progress * cities.length),
+          cities.length - 1
+        );
+        const city = cities[idx];
+
+        // update image immediately
+        imgEl.src = city.image;
+        hoverImgEl.src = city.backImage;
+
+        // but scramble-animate text
+        scrambleFill(feedbackEl, city.feedback);
+        scrambleFill(nameEl, city.city);
+        scrambleFill(descEl, city.description);
+        scrambleFill(desc2El, city.description2);
+      },
+    });
+
+    return () => ScrollTrigger.getAll().forEach((st) => st.kill());
+  }, []);
 
   return (
     <div>
@@ -152,7 +287,7 @@ export default function HomePage() {
       </div>
       <div className="section-3 relative w-screen overflow-hidden">
         <div className="sticky top-0 h-screen">
-          <div className="image-area flex w-[500vw] h-full">
+          <div className="image-area flex w-[500vw] h-screen">
             {/* — 4 Görsel Slayt — */}
             {["city-1", "city-2", "city-3", "city-4"].map((img, i) => (
               <Image
@@ -199,133 +334,93 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-      <div className="section-4 min-h-screen py-20">
-        <div className="newyork-main-page mx-4 my-72 flex flex-col md:flex-row gap-8 items-center justify-between">
-          <div className="main-jacket-image flex flex-col items-center md:items-start text-center md:text-left">
-            <div className="w-100 h-auto">
+      <section
+        className="section-4 relative w-screen h-screen overflow-hidden p-8"
+        data-cities={JSON.stringify([
+          {
+            feedback: "[Bowery Feedback]",
+            city: "New York",
+            description:
+              "Raw-black cowhide, zipper track in safety-cone orange, interior liner print of subway map overlayed with CBGB setlists.",
+            description2: "Honors the first Ramones set at CBGB (Aug 16 1974).",
+            image: "/images/main-newyork-front.png",
+            backImage: "/images/main-newyork-back.png",
+          },
+          {
+            feedback: "[Thames Rip]",
+            city: "London",
+            description:
+              "Distressed white denim, hand-slash red tartan inserts, sleeve studs in the shape of pound-sign glyphs.",
+            description2:
+              "Nods to The Clash’ 1977 Jubilee boat gig on the Thames.",
+            image: "/images/main-london-front.png",
+            backImage: "/images/main-london-back.png",
+          },
+          {
+            feedback: "[Autoworker’s Howl]",
+            city: "Detroit",
+            description:
+              "Oil-stain gray waxed canvas, reflective tape stripes, recycled seat-belt belt.",
+            description2:
+              "Pays tribute to Iggy Pop climbing off the Cobo Hall stage in ’69.",
+            image: "/images/main-detroit-front.png",
+            backImage: "/images/main-detroit-back.png",
+          },
+          {
+            feedback: "[Black Flag Sunburn]",
+            city: "Los Angeles",
+            description:
+              "Sun-bleached black leather, heat-reactive panel that turns deep crimson, graffiti font “Nervous Breakdown” on lining.",
+            description2:
+              "Celebrates the birth of Hardcore at Hermosa Beach, 1978.",
+            image: "/images/main-losangeles-front.png",
+            backImage: "/images/main-losangeles-back.png",
+          },
+        ])}
+      >
+        <div className="city-panel flex flex-col md:flex-row items-between justify-between h-full">
+          {/* Image */}
+          <div className="w-full flex flex-col items-left justify-center">
+            <div className="w-full flex flex-col items-start justify-center group relative">
               <Image
-                src="/images/main-newyork-front.png"
+                src=""
                 alt="Jacket"
                 width={1000}
                 height={1000}
-                className="object-contain"
+                className="section-img object-contain  w-[400px] relative z-10"
               />
-            </div>
-            <h4 className="mt-4 text-base font-ppneue font-regular">
-              [Bowery Feedback]
-            </h4>
-          </div>
-
-          <div className="main-jacket-text-area flex flex-row items-center gap-8">
-            <p className="text-[14rem] font-[200]">[</p>
-            <div className="main-jacket-inner max-w-xl flex flex-col gap-4 mt-10 text-left">
-              <h4 className="text-3xl font-archivo font-bold">New York</h4>
-              <p className="text-base font-ppneue font-semibold leading-relaxed">
-                Raw-black cowhide, zipper track in safety-cone orange, interior
-                liner print of subway map overlayed with CBGB setlists.
-              </p>
-              <p className="text-base font-ppneue leading-relaxed">
-                Honors the first Ramones set at CBGB (Aug 16 1974).
-              </p>
-            </div>
-            <p className="text-[14rem] font-[200]">]</p>
-          </div>
-        </div>
-        <div className="london-main-page mx-4 my-72 flex flex-col md:flex-row gap-8 items-center justify-between">
-          <div className="main-jacket-image flex flex-col items-center md:items-start text-center md:text-left">
-            <div className="w-100 h-auto">
               <Image
-                src="/images/main-london-front.png"
-                alt="Jacket"
+                src="" // will set to city.backImage
+                alt="Jacket Back"
                 width={1000}
                 height={1000}
-                className="object-contain"
+                className="hover-img object-contain w-[400px] absolute top-0 left-0 z-20
+               opacity-0 transition-opacity duration-300
+               group-hover:opacity-100"
               />
             </div>
-            <h4 className="mt-4 text-base font-ppneue font-regular">
-              [Thames Rip]
-            </h4>
+            <h4 className="city-feedback mt-4 text-base font-ppneue font-regular"></h4>
           </div>
-
-          <div className="main-jacket-text-area flex flex-row items-center gap-8">
-            <p className="text-[14rem] font-[200]">[</p>
-            <div className="main-jacket-inner max-w-xl flex flex-col gap-4 mt-10 text-left">
-              <h4 className="text-3xl font-archivo font-bold">London</h4>
-              <p className="text-base font-ppneue font-semibold leading-relaxed">
-                Distressed white denim, hand-slash red tartan inserts, sleeve
-                studs in the shape of pound-sign glyphs.
-              </p>
-              <p className="text-base font-ppneue leading-relaxed">
-                Nods to the The Clash’ 1977 Jubilee boat gig on the Thames.
-              </p>
+          {/* Text */}
+          <div className="w-full flex flex-row items-center justify-center gap-4">
+            <p className="text-[14rem] font-ppneue font-[200] ">[</p>
+            <div className="city-text-area flex flex-col gap-4 items-start text-left">
+              <h3 className="city-name text-3xl font-archivo font-bold"></h3>
+              <p className="city-desc text-lg font-[600] font-ppneue leading-relaxed"></p>
+              <p className="city-desc2 text-base font-ppneue leading-relaxed"></p>
             </div>
-            <p className="text-[14rem] font-[200]">]</p>
+            <p className="text-[14rem] font-ppneue font-[200]">]</p>
           </div>
         </div>
-        <div className="detroit-main-page mx-4 my-72 flex flex-col md:flex-row gap-8 items-center justify-between">
-          <div className="main-jacket-image flex flex-col items-center md:items-start text-center md:text-left">
-            <div className="w-100 h-auto">
-              <Image
-                src="/images/main-detroit-front.png"
-                alt="Jacket"
-                width={1000}
-                height={1000}
-                className="object-contain"
-              />
-            </div>
-            <h4 className="mt-4 text-base font-ppneue font-regular">
-              [Autoworker’s Howl]
-            </h4>
-          </div>
+      </section>
 
-          <div className="main-jacket-text-area flex flex-row items-center gap-8">
-            <p className="text-[14rem] font-[200]">[</p>
-            <div className="main-jacket-inner max-w-xl flex flex-col gap-4 mt-10 text-left">
-              <h4 className="text-3xl font-archivo font-bold">Detroit</h4>
-              <p className="text-base font-ppneue font-semibold leading-relaxed">
-                Oil-stain gray waxed canvas, reflective tape stripes, recycled
-                seat-belt belt.
-              </p>
-              <p className="text-base font-ppneue leading-relaxed">
-                Pays tribute to Iggy Pop climbing off the Cobo Hall stage in
-                ’69.
-              </p>
-            </div>
-            <p className="text-[14rem] font-[200]">]</p>
-          </div>
+      <section className="section-5 mt-40 w-screen h-screen bg-black1 text-white">
+        <GraffitiHeader />
+        <div className="mt-8 h-[80vh] px-4">
+          <GraffitiWall />
         </div>
-        <div className="loasangeles-main-page mx-4 my-72 flex flex-col md:flex-row gap-8 items-center justify-between">
-          <div className="main-jacket-image flex flex-col items-center md:items-start text-center md:text-left">
-            <div className="w-100 h-auto">
-              <Image
-                src="/images/main-losangeles-front.png"
-                alt="Jacket"
-                width={1000}
-                height={1000}
-                className="object-contain"
-              />
-            </div>
-            <h4 className="mt-4 text-base font-ppneue font-regular">
-              [Black Flag Sunburn]
-            </h4>
-          </div>
-
-          <div className="main-jacket-text-area flex flex-row items-center gap-8">
-            <p className="text-[14rem] font-[200]">[</p>
-            <div className="main-jacket-inner max-w-xl flex flex-col gap-4 mt-10 text-left">
-              <h4 className="text-3xl font-archivo font-bold">Los Angeles</h4>
-              <p className="text-base font-ppneue font-semibold leading-relaxed">
-                Sun-bleached black leather, heat-reactive panel that turns deep
-                crimson, graffiti font “Nervous Breakdown” on lining.
-              </p>
-              <p className="text-base font-ppneue leading-relaxed">
-                Celebrates the birth of Hardcore at Hermosa Beach, 1978.
-              </p>
-            </div>
-            <p className="text-[14rem] font-[200]">]</p>
-          </div>
-        </div>
-      </div>
+      </section>
+      <Footer />
     </div>
   );
 }

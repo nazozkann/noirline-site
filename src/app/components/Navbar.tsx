@@ -8,7 +8,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="w-full bg-primary text-secondary px-4 md:px-4 py-4 flex items-end justify-between">
+    <nav className="fixed top-0 left-0 z-50 w-full bg-primary text-secondary px-4 md:px-4 py-4 flex items-end justify-between">
       <Link href="/" className="text-2xl font-archivo font-black">
         NOIRline
       </Link>
@@ -17,11 +17,11 @@ export default function Navbar() {
         <Link href="/story" className="hover:text-accent transition mr-10">
           Story
         </Link>
+        <Link href="/new" className="hover:text-accent transition mr-10">
+          New
+        </Link>
         <Link href="/collection" className="hover:text-accent transition mr-10">
           Collection
-        </Link>
-        <Link href="/shop" className="hover:text-accent transition mr-10">
-          Shop
         </Link>
         <Link href="/contact" className="hover:text-accent transition">
           <div>
