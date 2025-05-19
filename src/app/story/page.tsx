@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Footer from "../components/Footer";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -272,9 +273,11 @@ export default function StoryPage() {
         <h2 className="font-archivo text-4xl md:text-6xl mb-6">
           We don’t follow fashion. We follow rebellion.
         </h2>
-        <button className="relative font-ppneue uppercase tracking-wide inline-block group">
-          Explore Core Collection
-        </button>
+        <Link href={"/collection"}>
+          <button className="relative font-ppneue uppercase tracking-wide inline-block group">
+            Explore Core Collection
+          </button>
+        </Link>
         <div className="w-full flex justify-center my-40">
           <Image
             src="/images/polaroid-2.png"

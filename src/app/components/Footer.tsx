@@ -7,22 +7,22 @@ export default function Footer() {
     {
       title: "Story",
       desc: "Stories worth reading.",
-      href: "#journal",
+      href: "/story",
+    },
+    {
+      title: "New",
+      desc: "Four jackets. And what else.",
+      href: "/new",
     },
     {
       title: "Collection",
-      desc: "Four jackets. Nothing more.",
-      href: "#core-collection",
+      desc: "Where rebellion lives.",
+      href: "/collection",
     },
     {
       title: "Cities",
-      desc: "Where rebellion lives.",
-      href: "#our-cities",
-    },
-    {
-      title: "Shop",
       desc: "No comebacks.",
-      href: "#the-archive",
+      href: "/cities",
     },
   ];
 
@@ -53,9 +53,9 @@ export default function Footer() {
 
         {/* Nav Links */}
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center lg:text-left">
-          {navItems.map(({ title, desc }) => (
+          {navItems.map(({ title, desc, href }) => (
             <div key={title}>
-              <Link href={"/"}>
+              <Link href={href}>
                 <a className="inline-block text-lg font-pp-neue-montreal mb-2 relative group  before:content-[''] after:content-[''] before:absolute before:top-0 before:left-0 after:absolute after:top-0 after:right-0  before:opacity-0 after:opacity-0  hover:before:content-['['] hover:after:content-['\005D']  hover:before:opacity-100 hover:after:opacity-100  hover:before:-translate-x-1 hover:after:translate-x-1 hover:px-2   before:transition-all after:transition-all">
                   {title}
                 </a>
