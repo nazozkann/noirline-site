@@ -6,7 +6,7 @@ export default function GraffitiWall() {
   const sprayingRef = useRef(false);
   const colorRef = useRef("#ff6200");
   const lastPos = useRef<{ x: number; y: number } | null>(null);
-  const dwellTicks = useRef(0); // kaç ardışık frame aynı noktada?
+  const dwellTicks = useRef(0);
 
   const [color, setColor] = useState("#2c2c2c");
   useEffect(() => {
@@ -18,6 +18,40 @@ export default function GraffitiWall() {
     const ctx = canvas.getContext("2d")!;
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
+
+    const drawSpraySpot = (
+      x: number,
+      y: number,
+      ctx: CanvasRenderingContext2D
+    ) => {
+      const particles = 200;
+      for (let i = 0; i < particles; i++) {
+        const angle = Math.random() * 100 * Math.PI;
+        const d = Math.random() * 20;
+        const ox = Math.cos(angle) * d;
+        const oy = Math.sin(angle) * d;
+        const alpha = (1 - d / 20) * (Math.random() * 0.3 + 0.2);
+        ctx.fillStyle = hexWithAlpha(colorRef.current, alpha);
+        const r = Math.random() * 2 + 0.5;
+        ctx.beginPath();
+        ctx.arc(x + ox, y + oy, r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    };
+
+    const drawDrip = (x: number, y: number, ctx: CanvasRenderingContext2D) => {
+      const length = Math.random() * 60 + 40;
+      const segments = Math.floor(length / 4);
+      for (let i = 0; i < segments; i++) {
+        const yy = y + i * 4;
+        const alpha = Math.max(0, 1 - i / segments) * 0.5;
+        ctx.fillStyle = hexWithAlpha(colorRef.current, alpha);
+        const r = 2 + Math.random() * 1.5;
+        ctx.beginPath();
+        ctx.arc(x + (Math.random() - 0.5) * 4, yy, r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    };
 
     const spray = (e: PointerEvent) => {
       if (!sprayingRef.current) {
@@ -37,19 +71,15 @@ export default function GraffitiWall() {
 
         // ------------- DRIP LOGIC ----------------
         if (dist < 4) {
-          // neredeyse sabit
           dwellTicks.current += 1;
           if (dwellTicks.current > 2) {
-            // ~8 frame sonra akıt
             drawDrip(x, y, ctx);
             dwellTicks.current = 0;
           }
         } else {
           dwellTicks.current = 0;
         }
-        // ----------------------------------------
 
-        // boşluk doldurma (interpolasyon)
         const steps = Math.max(1, Math.floor(dist / 2));
         for (let i = 0; i < steps; i++) {
           const t = i / steps;
@@ -69,41 +99,6 @@ export default function GraffitiWall() {
     return () => canvas.removeEventListener("pointermove", spray);
   }, []);
 
-  // ---------- yardımcı fonksiyonlar ----------
-  const drawSpraySpot = (
-    x: number,
-    y: number,
-    ctx: CanvasRenderingContext2D
-  ) => {
-    const particles = 200;
-    for (let i = 0; i < particles; i++) {
-      const angle = Math.random() * 100 * Math.PI;
-      const d = Math.random() * 20;
-      const ox = Math.cos(angle) * d;
-      const oy = Math.sin(angle) * d;
-      const alpha = (1 - d / 20) * (Math.random() * 0.3 + 0.2);
-      ctx.fillStyle = hexWithAlpha(colorRef.current, alpha);
-      const r = Math.random() * 2 + 0.5;
-      ctx.beginPath();
-      ctx.arc(x + ox, y + oy, r, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  };
-
-  const drawDrip = (x: number, y: number, ctx: CanvasRenderingContext2D) => {
-    const length = Math.random() * 60 + 40;
-    const segments = Math.floor(length / 4);
-    for (let i = 0; i < segments; i++) {
-      const yy = y + i * 4;
-      const alpha = Math.max(0, 1 - i / segments) * 0.5;
-      ctx.fillStyle = hexWithAlpha(colorRef.current, alpha);
-      const r = 2 + Math.random() * 1.5;
-      ctx.beginPath();
-      ctx.arc(x + (Math.random() - 0.5) * 4, yy, r, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  };
-
   const hexWithAlpha = (hex: string, alpha: number) =>
     hex +
     Math.floor(alpha * 255)
@@ -114,7 +109,7 @@ export default function GraffitiWall() {
     const ctx = canvasRef.current!.getContext("2d")!;
     ctx.clearRect(0, 0, canvasRef.current!.width, canvasRef.current!.height);
   };
-  // ---------- render ----------
+
   return (
     <div className="relative w-full h-full select-none">
       <div className="absolute inset-0 bg-[url('/images/graffiti-background-2.webp')] bg-cover bg-center opacity-99 -z-10 pointer-events-none" />

@@ -20,7 +20,7 @@ export default function StoryPage() {
     { id: "london", label: "London" },
     { id: "detroit", label: "Detroit" },
     { id: "losangeles", label: "Los Angeles" },
-  ];
+  ] as const;
 
   useEffect(() => {
     if (heroTitle.current) {
@@ -60,6 +60,7 @@ export default function StoryPage() {
     gsap.registerPlugin(ScrollTrigger);
 
     const marqueeTrack = document.querySelector(".marquee-track");
+    if (!marqueeTrack) return;
     const trackWidth = marqueeTrack.scrollWidth / 2;
 
     gsap.to(marqueeTrack, {

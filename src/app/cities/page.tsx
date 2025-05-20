@@ -96,7 +96,7 @@ export default function CitiesPage() {
     const interval = setInterval(updateTime, 1000);
 
     return () => clearInterval(interval);
-  }, [activeCity]);
+  }, [city.utcOffset]);
 
   return (
     <main className="bg-[#f5f5f5] text-[#2c2c2c]">
@@ -137,7 +137,10 @@ export default function CitiesPage() {
         {/* Map Section */}
         <section className="h-[60vh] w-full flex flex-col items-center relative z-0 mt-10 mb-20">
           <div className="h-full w-[80vw] md:w-[75vw] lg:w-[50vw]">
-            <DynamicMap key={activeCity} coords={city.coords} />
+            <DynamicMap
+              key={activeCity}
+              coords={city.coords as [number, number]}
+            />
           </div>
         </section>
       </div>
