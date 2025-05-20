@@ -32,18 +32,18 @@ export default function New() {
     <main className="bg-[#f5f5f5] text-[#2c2c2c]">
       {/* Hero */}
       <section className="hero-2025 h-screen flex flex-col items-center justify-center relative">
-        <h1 className="text-[18rem] font-archivo font-[800] tracking-[0.5em] text-right leading-none">
+        <h1 className="text-[5.75rem] md:text-[10rem] lg:text-[18rem] font-archivo font-[800] tracking-[0.5em] pl-16 text-right leading-none">
           2025
         </h1>
-        <p className="right-8 w-full mr-156 mt-8 text-right text-2xl uppercase tracking-widest font-ppneue">
+        <p className="w-full mt-8 text-center text-2xl uppercase tracking-widest font-ppneue">
           [Core Collection]
         </p>
 
         {/* Floating Images */}
         <div className="absolute inset-0 pointer-events-none">
           {Array.from({ length: 6 }).map((_, i) => {
-            const top = Math.random() * 90 + "%";
-            const left = Math.random() * 90 + "%";
+            const top = Math.random() * 80 + "%";
+            const left = Math.random() * 80 + "%";
             const srcs = [
               "/images/zipper-2.png",
               "/images/model-pose.png",
@@ -57,10 +57,15 @@ export default function New() {
             return (
               <div
                 key={i}
-                className="floating-img absolute w-16 h-16 pointer-events-auto cursor-grab"
-                style={{ top, left }}
+                className="floating-img absolute pointer-events-auto cursor-grab"
+                style={{
+                  top,
+                  left,
+                  width: "clamp(4rem, 8vw, 12rem)",
+                  height: "clamp(4rem, 8vw, 12rem)",
+                }}
               >
-                <div className="w-[20rem]">
+                <div className="w-[10rem] md:w-[15rem] lg:w-[20rem] opacity-90">
                   <Image
                     src={src}
                     alt={`Floating ${i}`}

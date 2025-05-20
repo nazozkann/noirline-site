@@ -116,7 +116,7 @@ export default function StoryPage() {
       </section>
       {/* 3. Cities Grid */}
       <section className="py-20 px-4">
-        <div className="tabs font-archivo font-[500] flex flex-row justify-between items-center mb-20">
+        <div className="tabs font-archivo font-[500] flex flex-row justify-between items-center mb-16 md:mb-20">
           {cities.map((city) => (
             <h4
               key={city.id}
@@ -132,7 +132,7 @@ export default function StoryPage() {
         <div className="city-info-area">
           {selectedCity === "newyork" && (
             <div className="newyork-info flex flex-col items-center justify-center">
-              <div className="newyork-city city-info-image w-[40rem]">
+              <div className="newyork-city city-info-image w-[20rem] md:w-[40rem]">
                 <Image
                   src="/images/newyork-city-image.png"
                   alt="City 1"
@@ -141,7 +141,7 @@ export default function StoryPage() {
                   className="w-full h-auto object-cover"
                 />
               </div>
-              <div className="city-info-text flex flex-col items-center justify-center text-center mt-4 gap-4">
+              <div className="city-info-text flex flex-col items-center justify-center text-center mt-12 md:mt-4 gap-4">
                 <h3 className="font-ppneue font-[900] text-xl">
                   The city where attitude was born.
                 </h3>
@@ -237,7 +237,7 @@ export default function StoryPage() {
         </div>
       </section>
       {/* 4. Story Visual */}
-      <section className="relative py-20">
+      <section className="relative py-40">
         <Image
           src="/images/madein-noirline.png"
           alt="Story visual"
@@ -245,8 +245,8 @@ export default function StoryPage() {
           height={600}
           className="w-full h-auto object-cover"
         />
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center max-w-2xl">
-          <p className="font-ppneue text-xl">
+        <div className="absolute left-1/2 transform -translate-x-1/2 text-center ">
+          <p className="font-ppneue text-xl mt-4">
             From Bowery walls to Savile Row cuts. We merge rebellion with
             refinement.
           </p>

@@ -99,13 +99,13 @@ export default function JacketDetailPage({ jacket }: JacketDetailPageProps) {
     <main className="text-[#2c2c2c] bg-[#f5f5f5] flex flex-col items-center text-center">
       {/* Hero Section */}
       <section className="h-screen px-4 w-full max-w-screen-xl flex flex-col items-center justify-center">
-        <div className="detail-hero-header mt-80">
+        <div className="detail-hero-header mt-360 md:mt-60 lg:mt-80">
           <h1 className="text-[5rem] md:text-[8rem] font-archivo font-bold">
             {jacket.name}
           </h1>
           <p className="tracking-widest uppercase font-ppneue">{jacket.city}</p>
         </div>
-        <div className="hero-triple grid grid-cols-1 md:grid-cols-3 gap-4 mt-40 mb-20 w-full">
+        <div className="hero-triple grid grid-cols-1 md:grid-cols-3 gap-4 mt-24 md:mt-40 mb-20 w-full">
           {[jacket.heroImage1, jacket.heroImage2, jacket.heroImage3].map(
             (img, i) => (
               <div key={i} className="w-full">
@@ -125,7 +125,7 @@ export default function JacketDetailPage({ jacket }: JacketDetailPageProps) {
       {/* Manifest Section */}
       <section
         ref={manifestRef}
-        className="mt-140 mb-60 px-4 w-full max-w-screen-md fade-in"
+        className="mt-420 md:mt-140 mb-60 px-4 w-full max-w-screen-md fade-in"
       >
         <h2
           ref={taglineRef}

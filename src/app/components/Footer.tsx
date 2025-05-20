@@ -36,7 +36,7 @@ export default function Footer() {
 
         {/* Slogan */}
         <p className="mt-40 text-left opacity-70 font-ppneue">
-          [We don't spam. We speak when needed.]
+          [We don&apos;t spam. We speak when needed.]
         </p>
 
         {/* Newsletter */}

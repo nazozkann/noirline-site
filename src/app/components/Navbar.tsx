@@ -23,10 +23,8 @@ export default function Navbar() {
         <Link href="/collection" className="hover:text-accent transition mr-10">
           Collection
         </Link>
-        <Link href="/contact" className="hover:text-accent transition">
-          <div>
-            New York <span className="font-light">7:30 p.m.</span>
-          </div>
+        <Link href="/cities" className="hover:text-accent transition">
+          <div>Cities</div>
         </Link>
       </div>
       <button
@@ -37,20 +35,18 @@ export default function Navbar() {
         {isOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
       {isOpen && (
-        <div className="absolute top-16 left-0 w-full bg-primary text-secondary flex flex-col items-center space-y-4 py-4 font-ppneue md:hidden">
-          <Link href="/about" onClick={() => setIsOpen(false)}>
+        <div className="absolute z-20 top-16 left-0 w-full bg-[#f5f5f5] text-[#2c2c2c] flex flex-col items-center space-y-8 py-4 font-ppneue text-2xl md:hidden">
+          <Link href="/story" onClick={() => setIsOpen(false)}>
             Story
           </Link>
-          <Link href="/collections" onClick={() => setIsOpen(false)}>
+          <Link href="/new" onClick={() => setIsOpen(false)}>
+            New
+          </Link>
+          <Link href="/collection" onClick={() => setIsOpen(false)}>
             Collection
           </Link>
-          <Link href="/shop" onClick={() => setIsOpen(false)}>
-            Shop
-          </Link>
-          <Link href="/contact" onClick={() => setIsOpen(false)}>
-            <div>
-              New York <span className="font-light">7:30 p.m.</span>
-            </div>
+          <Link href="/cities" onClick={() => setIsOpen(false)}>
+            <div>Cities</div>
           </Link>
         </div>
       )}

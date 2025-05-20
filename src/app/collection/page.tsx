@@ -96,7 +96,7 @@ export default function Collection() {
   return (
     <main className="bg-[#f5f5f5] text-[#2c2c2c]">
       <h2 className="mt-40 ml-8 font-ppneue text-2xl">[Core Collection]</h2>
-      <div className="core-collection grid grid-cols-1 md:grid-cols-4 gap-6 p-8">
+      <div className="core-collection grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-8">
         {items.map((item) => (
           <Link href={`/jacket/${item.linkName}`} key={item.linkName}>
             <div key={item.productName} className="flex flex-col items-center">
@@ -116,7 +116,7 @@ export default function Collection() {
         ))}
       </div>
       <h2 className="mt-40 ml-8 font-ppneue text-2xl">[Side Collection]</h2>
-      <div className="side-collection  grid grid-cols-2 md:grid-cols-6 gap-8 p-8">
+      <div className="side-collection  grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 p-8">
         {sideItems.map((item) => (
           <div
             key={item.productName}
