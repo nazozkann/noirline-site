@@ -55,10 +55,11 @@ export default function Footer() {
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center lg:text-left">
           {navItems.map(({ title, desc, href }) => (
             <div key={title}>
-              <Link href={href}>
-                <a className="inline-block text-lg font-pp-neue-montreal mb-2 relative group  before:content-[''] after:content-[''] before:absolute before:top-0 before:left-0 after:absolute after:top-0 after:right-0  before:opacity-0 after:opacity-0  hover:before:content-['['] hover:after:content-['\005D']  hover:before:opacity-100 hover:after:opacity-100  hover:before:-translate-x-1 hover:after:translate-x-1 hover:px-2   before:transition-all after:transition-all">
-                  {title}
-                </a>
+              <Link
+                className="inline-block text-lg font-pp-neue-montreal mb-2 relative group  before:content-[''] after:content-[''] before:absolute before:top-0 before:left-0 after:absolute after:top-0 after:right-0  before:opacity-0 after:opacity-0  hover:before:content-['['] hover:after:content-['\005D']  hover:before:opacity-100 hover:after:opacity-100  hover:before:-translate-x-1 hover:after:translate-x-1 hover:px-2   before:transition-all after:transition-all"
+                href={href}
+              >
+                {title}
                 <p className="text-sm opacity-70">{desc}</p>
               </Link>
             </div>

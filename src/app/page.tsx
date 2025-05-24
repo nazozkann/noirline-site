@@ -20,12 +20,57 @@ interface City {
   backImage: string;
 }
 
+const cityData: City[] = [
+  {
+    linkDetail: "bowery-feedback",
+    feedback: "[Bowery Feedback]",
+    city: "New York",
+    description:
+      "Raw-black cowhide, zipper track in safety-cone orange, interior liner print of subway map overlayed with CBGB setlists.",
+    description2: "Honors the first Ramones set at CBGB (Aug 16 1974).",
+    image: "/images/main-newyork-front.png",
+    backImage: "/images/main-newyork-back.png",
+  },
+  {
+    linkDetail: "thames-rip",
+    feedback: "[Thames Rip]",
+    city: "London",
+    description:
+      "Distressed white denim, hand-slash red tartan inserts, sleeve studs in the shape of pound-sign glyphs.",
+    description2: "Nods to The Clash’ 1977 Jubilee boat gig on the Thames.",
+    image: "/images/main-london-front.png",
+    backImage: "/images/main-london-back.png",
+  },
+  {
+    linkDetail: "autoworkers-howl",
+    feedback: "[Autoworker’s Howl]",
+    city: "Detroit",
+    description:
+      "Oil-stain gray waxed canvas, reflective tape stripes, recycled seat-belt belt.",
+    description2:
+      "Pays tribute to Iggy Pop climbing off the Cobo Hall stage in ’69.",
+    image: "/images/main-detroit-front.png",
+    backImage: "/images/main-detroit-back.png",
+  },
+  {
+    linkDetail: "black-flag-sunburn",
+    feedback: "[Black Flag Sunburn]",
+    city: "Los Angeles",
+    description:
+      "Sun-bleached black leather, heat-reactive panel that turns deep crimson, graffiti font “Nervous Breakdown” on lining.",
+    description2: "Celebrates the birth of Hardcore at Hermosa Beach, 1978.",
+    image: "/images/main-losangeles-front.png",
+    backImage: "/images/main-losangeles-back.png",
+  },
+];
+
 export default function HomePage() {
   const section4Ref = useRef<HTMLElement | null>(null);
-  const [cities, setCities] = useState<City[]>([]);
+  const [cities] = useState<City[]>(cityData);
   const [currentIdx, setCurrentIdx] = useState(0);
+  const [currentCity, setCurrentCity] = useState<City | null>(cityData[0]);
+
   useEffect(() => {
-    /* 1 – Hero overlay parallax */
     const movePic = gsap.timeline({
       scrollTrigger: {
         trigger: ".section-1",
@@ -40,7 +85,6 @@ export default function HomePage() {
     movePic.to(".overlay-2", { x: "25vw", ease: "none" }, 0);
     movePic.to(".overlay-4", { x: "35vw", ease: "none" }, 0);
 
-    /* 2 – NOIRline heading intro */
     gsap.fromTo(
       ".noirline-heading",
       { opacity: 0, scale: 2, skewY: 5 },
@@ -54,7 +98,6 @@ export default function HomePage() {
       }
     );
 
-    /* 3 – NOIRline heading shake */
     gsap.to(".noirline-heading", {
       keyframes: [
         { skewX: 4, x: 4, duration: 0.05 },
@@ -67,7 +110,6 @@ export default function HomePage() {
       scrollTrigger: { trigger: ".noirline-heading", start: "top 80%" },
     });
 
-    /* 4 – Sub-heading parallax */
     gsap.fromTo(
       ".subheading",
       { y: 50 },
@@ -84,7 +126,6 @@ export default function HomePage() {
       }
     );
 
-    /* 5 – Horizontal scroll (city photos) */
     const slides = 5;
     const scrollDistance = window.innerWidth * (slides - 1);
     const horizontalTween = gsap.to(".image-area", {
@@ -106,109 +147,91 @@ export default function HomePage() {
     };
   }, []);
 
-  /* -------------------------- CITY PANEL LOGIC --------------------------- */
   useEffect(() => {
     if (!section4Ref.current) return;
-    const parsed: City[] = JSON.parse(section4Ref.current.dataset.cities!);
-    setCities(parsed);
 
-    const imgEl =
-      section4Ref.current.querySelector<HTMLImageElement>(".section-img")!;
-    const hoverEl =
-      section4Ref.current.querySelector<HTMLImageElement>(".hover-img")!;
-    const fbEl =
-      section4Ref.current.querySelector<HTMLElement>(".city-feedback")!;
-    const nameEl =
-      section4Ref.current.querySelector<HTMLElement>(".city-name")!;
-    const descEl =
-      section4Ref.current.querySelector<HTMLElement>(".city-desc")!;
-    const desc2El =
-      section4Ref.current.querySelector<HTMLElement>(".city-desc2")!;
-
-    /* — Helper: scramble + fill animation — */
-    const scrambleFill = (
-      el: HTMLElement,
-      newText: string,
-      speed = 10,
-      fillmode: "forwards" | "backwards" | "both" = "forwards"
-    ) => {
-      if (el.dataset.animating === "true") return;
-      el.dataset.animating = "true";
-
-      const len = newText.length;
-      const randomArr = Array.from({ length: len }, (_, i) =>
-        newText[i] === " "
-          ? " "
-          : "abcdefghijklmnopqrstuvwxyz"[Math.floor(Math.random() * 26)]
-      );
-      const finish = () => (el.dataset.animating = "false");
-
-      if (fillmode === "backwards") {
-        for (let i = len - 1; i >= 0; i--) {
-          setTimeout(() => {
-            randomArr[i] = newText[i];
-            el.textContent = randomArr.join("");
-            if (i === 0) finish();
-          }, (len - i) * speed);
-        }
-      } else {
-        const isEven = len % 2 === 0;
-        for (let i = 0; i < len; i++) {
-          setTimeout(() => {
-            if (
-              fillmode === "forwards" ||
-              (fillmode === "both" && i % 2 === 0)
-            ) {
-              randomArr[i] = newText[i];
-            } else {
-              const pos = isEven ? len - i : len - i - 1;
-              randomArr[pos] = newText[pos];
-            }
-            el.textContent = randomArr.join("");
-            if (i === len - 1) finish();
-          }, (i + 1) * speed);
-        }
-      }
-    };
-
-    const first = parsed[0];
-    imgEl.src = first.image;
-    hoverEl.src = first.backImage;
-    scrambleFill(fbEl, first.feedback);
-    scrambleFill(nameEl, first.city);
-    scrambleFill(descEl, first.description);
-    scrambleFill(desc2El, first.description2);
-
-    // ScrollTrigger ile index güncelle ve scrambler
     ScrollTrigger.create({
       trigger: section4Ref.current,
       start: "top top",
-      end: () => `+=${window.innerHeight * parsed.length - 5}`,
+      end: `+=${window.innerHeight * cities.length - 5}`,
       scrub: true,
       pin: true,
       snap: {
-        snapTo: 1 / (parsed.length - 1),
+        snapTo: 1 / (cities.length - 1),
         duration: { min: 0.2, max: 0.4 },
       },
       onUpdate(self) {
         const idx = Math.min(
-          Math.floor(self.progress * parsed.length),
-          parsed.length - 1
+          Math.floor(self.progress * cities.length),
+          cities.length - 1
         );
-        const city = parsed[idx];
+        const city = cities[idx];
         setCurrentIdx(idx);
-
-        imgEl.src = city.image;
-        hoverEl.src = city.backImage;
-        scrambleFill(fbEl, city.feedback);
-        scrambleFill(nameEl, city.city);
-        scrambleFill(descEl, city.description);
-        scrambleFill(desc2El, city.description2);
+        setCurrentCity(city);
       },
     });
 
     return () => ScrollTrigger.getAll().forEach((st) => st.kill());
-  }, []);
+  }, [cities]);
+
+  const scrambleFill = (
+    el: HTMLElement,
+    newText: string,
+    speed = 10,
+    fillmode: "forwards" | "backwards" | "both" = "forwards"
+  ) => {
+    if (el.dataset.animating === "true") return;
+    el.dataset.animating = "true";
+
+    const len = newText.length;
+    const randomArr = Array.from({ length: len }, (_, i) =>
+      newText[i] === " "
+        ? " "
+        : "abcdefghijklmnopqrstuvwxyz"[Math.floor(Math.random() * 26)]
+    );
+    const finish = () => (el.dataset.animating = "false");
+
+    if (fillmode === "backwards") {
+      for (let i = len - 1; i >= 0; i--) {
+        setTimeout(() => {
+          randomArr[i] = newText[i];
+          el.textContent = randomArr.join("");
+          if (i === 0) finish();
+        }, (len - i) * speed);
+      }
+    } else {
+      const isEven = len % 2 === 0;
+      for (let i = 0; i < len; i++) {
+        setTimeout(() => {
+          if (fillmode === "forwards" || (fillmode === "both" && i % 2 === 0)) {
+            randomArr[i] = newText[i];
+          } else {
+            const pos = isEven ? len - i : len - i - 1;
+            randomArr[pos] = newText[pos];
+          }
+          el.textContent = randomArr.join("");
+          if (i === len - 1) finish();
+        }, (i + 1) * speed);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (!currentCity || !section4Ref.current) return;
+    const fbEl =
+      section4Ref.current.querySelector<HTMLElement>(".city-feedback");
+    const nameEl = section4Ref.current.querySelector<HTMLElement>(".city-name");
+    const descEl = section4Ref.current.querySelector<HTMLElement>(".city-desc");
+    const desc2El =
+      section4Ref.current.querySelector<HTMLElement>(".city-desc2");
+
+    if (!fbEl || !nameEl || !descEl || !desc2El) return;
+
+    scrambleFill(fbEl, currentCity.feedback);
+    scrambleFill(nameEl, currentCity.city);
+    scrambleFill(descEl, currentCity.description);
+    scrambleFill(desc2El, currentCity.description2);
+  }, [currentCity]);
 
   return (
     <div>
@@ -219,7 +242,7 @@ export default function HomePage() {
         {/* Main Image */}
         <div className=" relative w-full h-full">
           <Image
-            src="/images/Punk_Leather_Texture.png"
+            src="/images/Punk_Leather_Texture.webp"
             alt="Leather Texture"
             fill
             className="object-cover"
@@ -346,51 +369,6 @@ export default function HomePage() {
       <section
         ref={section4Ref}
         className="section-4 relative w-screen h-screen overflow-hidden p-8"
-        data-cities={JSON.stringify([
-          {
-            linkDetail: "bowery-feedback",
-            feedback: "[Bowery Feedback]",
-            city: "New York",
-            description:
-              "Raw-black cowhide, zipper track in safety-cone orange, interior liner print of subway map overlayed with CBGB setlists.",
-            description2: "Honors the first Ramones set at CBGB (Aug 16 1974).",
-            image: "/images/main-newyork-front.png",
-            backImage: "/images/main-newyork-back.png",
-          },
-          {
-            linkDetail: "thames-rip",
-            feedback: "[Thames Rip]",
-            city: "London",
-            description:
-              "Distressed white denim, hand-slash red tartan inserts, sleeve studs in the shape of pound-sign glyphs.",
-            description2:
-              "Nods to The Clash’ 1977 Jubilee boat gig on the Thames.",
-            image: "/images/main-london-front.png",
-            backImage: "/images/main-london-back.png",
-          },
-          {
-            linkDetail: "autoworkers-howl",
-            feedback: "[Autoworker’s Howl]",
-            city: "Detroit",
-            description:
-              "Oil-stain gray waxed canvas, reflective tape stripes, recycled seat-belt belt.",
-            description2:
-              "Pays tribute to Iggy Pop climbing off the Cobo Hall stage in ’69.",
-            image: "/images/main-detroit-front.png",
-            backImage: "/images/main-detroit-back.png",
-          },
-          {
-            linkDetail: "black-flag-sunburn",
-            feedback: "[Black Flag Sunburn]",
-            city: "Los Angeles",
-            description:
-              "Sun-bleached black leather, heat-reactive panel that turns deep crimson, graffiti font “Nervous Breakdown” on lining.",
-            description2:
-              "Celebrates the birth of Hardcore at Hermosa Beach, 1978.",
-            image: "/images/main-losangeles-front.png",
-            backImage: "/images/main-losangeles-back.png",
-          },
-        ])}
       >
         <div className="city-panel flex flex-col md:flex-row items-between justify-between h-full">
           {/* Image + feedback */}
@@ -400,20 +378,25 @@ export default function HomePage() {
           >
             <div className="w-full h-[50%] lg:h-full flex flex-col items-center lg:items-start justify-center mt-6 md:mt-24 lg:mt-0">
               <div className="group relative">
-                <Image
-                  src=""
-                  alt="Jacket"
-                  width={1000}
-                  height={1000}
-                  className="section-img object-contain w-[400px] relative z-10"
-                />
-                <Image
-                  src=""
-                  alt="Jacket Back"
-                  width={1000}
-                  height={1000}
-                  className="hover-img object-contain absolute top-0 left-0 w-[400px] z-20 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                />
+                {currentCity && (
+                  <Image
+                    src={currentCity.image}
+                    alt="Jacket"
+                    width={1000}
+                    height={1000}
+                    className="section-img object-contain w-[400px] relative z-10"
+                  />
+                )}
+
+                {currentCity && (
+                  <Image
+                    src={currentCity.backImage}
+                    alt="Jacket Back"
+                    width={1000}
+                    height={1000}
+                    className="hover-img object-contain absolute top-0 left-0 w-[400px] z-20 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                  />
+                )}
               </div>
               <h4 className="city-feedback mt-4 text-base md:text-lg font-ppneue"></h4>
             </div>
@@ -453,7 +436,6 @@ export default function HomePage() {
 
 /* ------------------------------ TYPES ------------------------------ */
 interface City {
-  slug: string;
   feedback: string;
   city: string;
   description: string;

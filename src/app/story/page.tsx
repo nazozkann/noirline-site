@@ -275,7 +275,7 @@ export default function StoryPage() {
           We don’t follow fashion. We follow rebellion.
         </h2>
         <Link href={"/collection"}>
-          <button className="relative font-ppneue uppercase tracking-wide inline-block group">
+          <button className="relative font-ppneue uppercase tracking-wide inline-block group cursor-pointer">
             Explore Core Collection
           </button>
         </Link>
