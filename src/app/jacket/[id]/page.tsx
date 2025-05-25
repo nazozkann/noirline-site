@@ -1,7 +1,4 @@
-// app/jackets/[id]/page.tsx
-
 import { notFound } from "next/navigation";
-// import the Jacket interface you defined in JacketDetailPage.tsx
 import JacketDetailPage, { Jacket } from "@/app/components/JacketDetailPage";
 
 const jackets: Record<string, Jacket> = {
@@ -84,9 +81,14 @@ const jackets: Record<string, Jacket> = {
   },
 };
 
-export default function Page({ params }: { params: { id: string } }) {
-  const jacket = jackets[params.id];
-  if (!jacket) return notFound();
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const jacket = jackets[id];
 
+  if (!jacket) return notFound();
   return <JacketDetailPage jacket={jacket} />;
 }
