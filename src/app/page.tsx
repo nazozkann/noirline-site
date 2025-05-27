@@ -28,8 +28,8 @@ const cityData: City[] = [
     description:
       "Raw-black cowhide, zipper track in safety-cone orange, interior liner print of subway map overlayed with CBGB setlists.",
     description2: "Honors the first Ramones set at CBGB (Aug 16 1974).",
-    image: "/images/main-newyork-front.png",
-    backImage: "/images/main-newyork-back.png",
+    image: "/images/main-newyork-front.webp",
+    backImage: "/images/main-newyork-back.webp",
   },
   {
     linkDetail: "thames-rip",
@@ -38,8 +38,8 @@ const cityData: City[] = [
     description:
       "Distressed white denim, hand-slash red tartan inserts, sleeve studs in the shape of pound-sign glyphs.",
     description2: "Nods to The Clash’ 1977 Jubilee boat gig on the Thames.",
-    image: "/images/main-london-front.png",
-    backImage: "/images/main-london-back.png",
+    image: "/images/main-london-front.webp",
+    backImage: "/images/main-london-back.webp",
   },
   {
     linkDetail: "autoworkers-howl",
@@ -49,8 +49,8 @@ const cityData: City[] = [
       "Oil-stain gray waxed canvas, reflective tape stripes, recycled seat-belt belt.",
     description2:
       "Pays tribute to Iggy Pop climbing off the Cobo Hall stage in ’69.",
-    image: "/images/main-detroit-front.png",
-    backImage: "/images/main-detroit-back.png",
+    image: "/images/main-detroit-front.webp",
+    backImage: "/images/main-detroit-back.webp",
   },
   {
     linkDetail: "black-flag-sunburn",
@@ -59,8 +59,8 @@ const cityData: City[] = [
     description:
       "Sun-bleached black leather, heat-reactive panel that turns deep crimson, graffiti font “Nervous Breakdown” on lining.",
     description2: "Celebrates the birth of Hardcore at Hermosa Beach, 1978.",
-    image: "/images/main-losangeles-front.png",
-    backImage: "/images/main-losangeles-back.png",
+    image: "/images/main-losangeles-front.webp",
+    backImage: "/images/main-losangeles-back.webp",
   },
 ];
 
@@ -252,28 +252,28 @@ export default function HomePage() {
 
         {/* Overlays */}
         <Image
-          src="/images/main-overlay-1.png"
+          src="/images/main-overlay-1.webp"
           alt="Overlay 1"
           width={1000}
           height={1000}
           className="overlay-1 object-contain absolute top-[1%] left-[12%] md:left-[17%] lg:left-[10%] w-[200px] md:w-[300px] lg:w-[440px]"
         />
         <Image
-          src="/images/main-overlay-3.png"
+          src="/images/main-overlay-3.webp"
           alt="Overlay 2"
           width={1000}
           height={1000}
           className="overlay-2 object-contain absolute top-[10%] right-[20%] md:right-[17%] lg:right-[15%] w-[180px] md:w-[240px] lg:w-[390px]"
         />
         <Image
-          src="/images/main-overlay-2.png"
+          src="/images/main-overlay-2.webp"
           alt="Overlay 3"
           width={1000}
           height={1000}
           className="overlay-3 object-contain absolute bottom-[1%] left-[10%] md:left-[18%] lg:left-[15%] w-[280px] md:w-[430px] lg:w-[600px]"
         />
         <Image
-          src="/images/main-overlay-4.png"
+          src="/images/main-overlay-4.webp"
           alt="Overlay 4"
           width={1000}
           height={1000}
@@ -312,7 +312,7 @@ export default function HomePage() {
             {["city-1", "city-2", "city-3", "city-4"].map((img, i) => (
               <Image
                 key={i}
-                src={`/images/${img}.png`}
+                src={`/images/${img}.webp`}
                 alt={`City ${i + 1}`}
                 width={1000}
                 height={1000}
@@ -350,7 +350,7 @@ export default function HomePage() {
                 </div>
                 <div className="w-[100%] md:w-[50%] h-auto">
                   <Image
-                    src="/images/jacket-folded.png"
+                    src="/images/jacket-folded.webp"
                     alt="Jacket"
                     width={1000}
                     height={1000}

@@ -45,12 +45,12 @@ export default function New() {
             const top = Math.random() * 80 + "%";
             const left = Math.random() * 80 + "%";
             const srcs = [
-              "/images/zipper-2.png",
-              "/images/model-pose.png",
-              "/images/pin-3.png",
-              "/images/pin-4.png",
-              "/images/pin-5.png",
-              "/images/metal-detail.png",
+              "/images/zipper-2.webp",
+              "/images/model-pose.webp",
+              "/images/pin-3.webp",
+              "/images/pin-4.webp",
+              "/images/pin-5.webp",
+              "/images/metal-detail.webp",
             ];
             const src = srcs[i % srcs.length];
 
@@ -89,7 +89,7 @@ export default function New() {
             city: "New York",
             statement:
               "Born on the Bowery. Cut for the boardroom.Concrete black cowhide meets subway-line chaos — this blazer holds the energy of a city that never flinched.",
-            bg: "/images/riot-nyc.png",
+            bg: "/images/riot-nyc.webp",
             productLink: "/jacket/bowery-feedback",
           },
           {
@@ -98,7 +98,7 @@ export default function New() {
             city: "London",
             statement:
               "Savile Row met Camden in a dark alley. Only one walked out.Aristocratic form, punk aggression — ripped denim and red tartan beneath a trench that speaks fluent rebellion.",
-            bg: "/images/anarchy-london.png",
+            bg: "/images/anarchy-london.webp",
             productLink: "/jacket/thames-rip",
           },
           {
@@ -107,7 +107,7 @@ export default function New() {
             city: "Detroit",
             statement:
               "Built like the factories that built the sound.Worn waxed canvas, industrial tape, and recycled seatbelts — a bomber that roars back at the system.",
-            bg: "/images/furnace-detroit.png",
+            bg: "/images/furnace-detroit.webp",
             productLink: "/jacket/autoworkers-howl",
           },
           {
@@ -116,7 +116,7 @@ export default function New() {
             city: "Los Angeles",
             statement:
               "Built like the factories that built the sound.Worn waxed canvas, industrial tape, and recycled seatbelts — a bomber that roars back at the system.",
-            bg: "/images/mirage-la.png",
+            bg: "/images/mirage-la.webp",
             productLink: "/jacket/black-flag-sunburn",
           },
         ].map((jacket, i) => (

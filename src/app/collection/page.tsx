@@ -8,88 +8,88 @@ export default function Collection() {
       productName: "Bowery Feedback",
       linkName: "bowery-feedback",
       city: "New York",
-      image: "/images/archive-1.1.png",
+      image: "/images/archive-1.1.webp",
     },
     {
       productName: "Thames Rip",
       linkName: "thames-rip",
       city: "London",
-      image: "/images/archive-1.2.png",
+      image: "/images/archive-1.2.webp",
     },
     {
       productName: "Autoworker’s Howl",
       linkName: "autoworkers-howl",
       city: "Detroit",
-      image: "/images/archive-1.3.png",
+      image: "/images/archive-1.3.webp",
     },
     {
       productName: "Black Flag Sunburn",
       linkName: "black-flag-sunburn",
       city: "Los Angeles",
-      image: "/images/archive-1.4.png",
+      image: "/images/archive-1.4.webp",
     },
   ];
 
   const sideItems = [
     {
       productName: "Static Whisperer",
-      image: "/images/archive-2.png",
+      image: "/images/archive-2.webp",
     },
     {
       productName: "White Riot Line",
-      image: "/images/archive-3.png",
+      image: "/images/archive-3.webp",
     },
     {
       productName: "Burn Mark",
-      image: "/images/archive-4.png",
+      image: "/images/archive-4.webp",
     },
     {
       productName: "Chain Proof",
-      image: "/images/archive-5.png",
+      image: "/images/archive-5.webp",
     },
     {
       productName: "Feedback Loop",
-      image: "/images/archive-6.png",
+      image: "/images/archive-6.webp",
     },
     {
       productName: "Chrome Silence",
-      image: "/images/archive-7.png",
+      image: "/images/archive-7.webp",
     },
     {
       productName: "Riot Pulse",
-      image: "/images/archive-8.png",
+      image: "/images/archive-8.webp",
     },
     {
       productName: "Static Kiss",
-      image: "/images/archive-9.png",
+      image: "/images/archive-9.webp",
     },
     {
       productName: "Broken Signal",
-      image: "/images/archive-10.png",
+      image: "/images/archive-10.webp",
     },
     {
       productName: "No Frequency",
-      image: "/images/archive-11.png",
+      image: "/images/archive-11.webp",
     },
     {
       productName: "Alloy Skin",
-      image: "/images/archive-12.png",
+      image: "/images/archive-12.webp",
     },
     {
       productName: "Dead Channel",
-      image: "/images/archive-13.png",
+      image: "/images/archive-13.webp",
     },
     {
       productName: "Shatter Script",
-      image: "/images/archive-14.png",
+      image: "/images/archive-14.webp",
     },
     {
       productName: "Cold Echo",
-      image: "/images/archive-15.png",
+      image: "/images/archive-15.webp",
     },
     {
       productName: "Static Pulse",
-      image: "/images/archive-16.png",
+      image: "/images/archive-16.webp",
     },
   ];
 

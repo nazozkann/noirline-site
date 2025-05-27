@@ -19,7 +19,7 @@ const cityData = {
     jacket: {
       name: "Bowery Feedback",
       tagline: "Concrete elegance with a snarling edge.",
-      image: "/images/archive-1.1.png",
+      image: "/images/archive-1.1.webp",
     },
     materials: ["Black Cowhide", "Subway Map Liner", "Chrome Zipper"],
     coords: [-74.006, 40.7128],
@@ -33,7 +33,7 @@ const cityData = {
     jacket: {
       name: "Autoworker’s Howl",
       tagline: "Rust, grit, and rock ’n roll resilience.",
-      image: "/images/archive-1.3.png",
+      image: "/images/archive-1.3.webp",
     },
     materials: ["Waxed Canvas", "Reflective Tape", "Seatbelt Strap"],
     coords: [-83.0458, 42.3314],
@@ -47,7 +47,7 @@ const cityData = {
     jacket: {
       name: "Thames Rip",
       tagline: "Tailored chaos with aristocratic bones.",
-      image: "/images/archive-1.2.png",
+      image: "/images/archive-1.2.webp",
     },
     materials: ["White Denim", "Red Tartan", "Pound Studs"],
     coords: [-0.1276, 51.5072],
@@ -61,7 +61,7 @@ const cityData = {
     jacket: {
       name: "Black Flag Sunburn",
       tagline: "Sun-drenched rebellion. Effortlessly bold.",
-      image: "/images/archive-1.4.png",
+      image: "/images/archive-1.4.webp",
     },
     materials: ["Heat-Reactive Leather", "Graffiti Lining", "Bleached Finish"],
     coords: [-118.2437, 34.0522],

@@ -91,7 +91,7 @@ export default function StoryPage() {
           Not born from trends. Born from cities where style fights back.
         </p>
         <Image
-          src="/images/wallet.png"
+          src="/images/wallet.webp"
           alt="grain"
           fill
           className="object-cover opacity-25 absolute inset-0"
@@ -107,7 +107,7 @@ export default function StoryPage() {
         </div>
         <div className="md:w-1/2 overflow-hidden">
           <Image
-            src="/images/handbag-closeup.png"
+            src="/images/handbag-closeup.webp"
             alt="Jacket detail"
             width={800}
             height={800}
@@ -135,7 +135,7 @@ export default function StoryPage() {
             <div className="newyork-info flex flex-col items-center justify-center">
               <div className="newyork-city city-info-image w-[20rem] md:w-[40rem]">
                 <Image
-                  src="/images/newyork-city-image.png"
+                  src="/images/newyork-city-image.webp"
                   alt="City 1"
                   width={1000}
                   height={1000}
@@ -161,7 +161,7 @@ export default function StoryPage() {
             <div className="london-info flex flex-col items-center justify-center">
               <div className="london-city city-info-image w-[40rem]">
                 <Image
-                  src="/images/london-city-image.png"
+                  src="/images/london-city-image.webp"
                   alt="City 1"
                   width={1000}
                   height={1000}
@@ -187,7 +187,7 @@ export default function StoryPage() {
             <div className="detroit-info flex flex-col items-center justify-center">
               <div className="detroit-city city-info-image w-[40rem]">
                 <Image
-                  src="/images/detroit-city-image.png"
+                  src="/images/detroit-city-image.webp"
                   alt="City 1"
                   width={1000}
                   height={1000}
@@ -213,7 +213,7 @@ export default function StoryPage() {
             <div className="losangeles-info flex flex-col items-center justify-center">
               <div className="losangeles-city city-info-image w-[40rem]">
                 <Image
-                  src="/images/losangeles-city-image.png"
+                  src="/images/losangeles-city-image.webp"
                   alt="City 1"
                   width={1000}
                   height={1000}
@@ -240,7 +240,7 @@ export default function StoryPage() {
       {/* 4. Story Visual */}
       <section className="relative py-40">
         <Image
-          src="/images/madein-noirline.png"
+          src="/images/madein-noirline.webp"
           alt="Story visual"
           width={1920}
           height={600}
@@ -281,7 +281,7 @@ export default function StoryPage() {
         </Link>
         <div className="w-full flex justify-center my-40">
           <Image
-            src="/images/polaroid-2.png"
+            src="/images/polaroid-2.webp"
             alt="Noirline watermark"
             width={1000}
             height={1000}
