@@ -1,4 +1,4 @@
-// components/GraffitiHeader.tsx
+
 "use client";
 import { useEffect } from "react";
 import gsap from "gsap";
@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function GraffitiHeader() {
   useEffect(() => {
-    // 1) Prep initial closed state
+
     gsap.set(".bracket-left", {
       x: 100,
       display: "inline-block",
@@ -22,7 +22,7 @@ export default function GraffitiHeader() {
       transformOrigin: "center center",
     });
 
-    // 2) Build a paused timeline
+
     const tl = gsap.timeline({ paused: true });
     tl.to(".bracket-left", { x: 0, duration: 4, ease: "power3.in" }, 0)
       .to(".bracket-right", { x: 0, duration: 4, ease: "power3.in" }, 0)
@@ -32,12 +32,11 @@ export default function GraffitiHeader() {
         "-=0.2"
       );
 
-    // 3) Trigger it when section-5 scrolls into center
     ScrollTrigger.create({
       trigger: ".graffiti-header",
       start: "center center",
       onEnter: () => tl.play(),
-      // markers: true, // ← turn on to debug
+
     });
   }, []);
 
