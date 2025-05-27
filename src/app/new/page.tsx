@@ -123,15 +123,13 @@ export default function New() {
           <div
             key={i}
             className="jacket-block h-screen flex flex-col md:flex-row items-center justify-center"
-            style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
           >
-            <div className="w-auto h-full relative overflow-hidden">
+            <div className="relative w-full h-full md:w-1/2 lg:w-1/3 overflow-hidden">
               <Image
                 src={jacket.bg}
                 alt={jacket.name}
-                className="jacket-image w-full h-full object-cover will-change-transform"
-                width={1000}
-                height={1000}
+                fill
+                className="object-cover"
                 priority
               />
             </div>
